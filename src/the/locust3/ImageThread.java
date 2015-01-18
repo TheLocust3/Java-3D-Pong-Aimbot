@@ -12,7 +12,7 @@ public class ImageThread implements Runnable{
 	private static final int RED = 200;
 	private static final int BLUE = 200;
 	private static final int ACCURACY = 80;
-	private static final int FILTER = 15;
+	private static final int FILTER = 10;
 	
 	private int startX = 0, startY = 0;
 	private int endX = 0, endY = 0;

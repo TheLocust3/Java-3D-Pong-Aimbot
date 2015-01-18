@@ -8,8 +8,8 @@ public class Main {
 	static final int THREADS = 4;
 	static final double GAMEWIDTH = 1.8;
 	static final double GAMEHEIGHT = 1.5;
-	static final int XOFFSET = 200;
-	static final int YOFFSET = 100;
+	static final int XOFFSET = 150;
+	static final int YOFFSET = 50;
 
 	public static void main (String args[]) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
