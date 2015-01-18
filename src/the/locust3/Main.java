@@ -1,20 +1,15 @@
 package the.locust3;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
-import java.awt.event.InputEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Main {
-	static final int REST = 10;
-	static final int THREADS = 1;
+	static final int THREADS = 4;
+	static final double GAMEWIDTH = 1.8;
+	static final double GAMEHEIGHT = 1.5;
+	static final int XOFFSET = 200;
+	static final int YOFFSET = 100;
 
 	public static void main (String args[]) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -27,12 +22,20 @@ public class Main {
 			
 			Thread threads[] = new Thread[THREADS];
 			
-			for (int i = 0; i < threads.length; i++) {
-				threads[i] = new Thread(new ImageThread(robot, screenSize));
-				threads[i].start();
-				Thread.sleep(REST);
-			}
+			int width = (int) (screenSize.getWidth() / GAMEWIDTH + XOFFSET);
+			int height = (int) (screenSize.getHeight() / GAMEHEIGHT + YOFFSET);
 			
+			threads[0] = new Thread(new ImageThread(robot, 0, 0, width / 2 , height / 2));
+			threads[0].start();
+
+			threads[1] = new Thread(new ImageThread(robot, width / 2, 0, width, height / 2));
+			threads[1].start();
+			
+			threads[2] = new Thread(new ImageThread(robot, 0, height / 2, width / 2 , height));
+			threads[2].start();
+
+			threads[3] = new Thread(new ImageThread(robot, width / 2, height / 2, width, height));
+			threads[3].start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
