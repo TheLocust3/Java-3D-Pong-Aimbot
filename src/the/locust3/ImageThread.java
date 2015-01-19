@@ -7,11 +7,11 @@ import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
 
 public class ImageThread implements Runnable{
-	private static final int SCALE = 60;
+	private static final int SCALE = 65;
 	private static final int GREEN = 245;
 	private static final int RED = 200;
 	private static final int BLUE = 200;
-	private static final int ACCURACY = 80;
+	private static final int ACCURACY = 50;
 	private static final int FILTER = 10;
 	
 	private int startX = 0, startY = 0;

@@ -8,7 +8,7 @@ public class Main {
 	static final int THREADS = 4;
 	static final double GAMEWIDTH = 1.8;
 	static final double GAMEHEIGHT = 1.5;
-	static final int XOFFSET = 50;
+	static final int XOFFSET = 25;
 	static final int YOFFSET = 50;
 
 	public static void main (String args[]) {
