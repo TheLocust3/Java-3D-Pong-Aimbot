@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
-import java.util.Date;
 
 public class ImageThread extends Thread{
 	private static final int GREEN = 245;
@@ -30,8 +29,6 @@ public class ImageThread extends Thread{
 	@Override
 	public void run() {
 		while (true) {
-			Date time1 = new Date();
-
 			BufferedImage screen = robot.createScreenCapture(new Rectangle(startX, startY, width, height));
 			
 			int large = 0;
@@ -77,10 +74,6 @@ public class ImageThread extends Thread{
 			}
 
 			robot.mousePress(InputEvent.BUTTON1_MASK);
-			
-			Date time2 = new Date();
-			
-			System.out.println((time2.getTime() - time1.getTime()) / 1000.0);
 		}
 	}
 }
