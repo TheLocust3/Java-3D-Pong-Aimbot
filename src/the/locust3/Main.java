@@ -25,6 +25,8 @@ public class Main implements ActionListener {
 	
 	JButton startButton;
 	
+	JTextField xScaleInput, yScaleInput, accuracyInput, greenInput, filterInput;
+	
 	Main () {
 		//Set nice looking Nimbus theme
 		try {
@@ -48,23 +50,23 @@ public class Main implements ActionListener {
         jPanel.setBorder(padding);
         
         JLabel xScaleLabel = new JLabel("X-Scale: ");
-        JTextField xScaleInput = new JTextField(4);
+        xScaleInput = new JTextField(4);
         xScaleInput.setText(Integer.toString(ImageThread.XSCALE));
 
         JLabel yScaleLabel = new JLabel("Y-Scale: ");
-        JTextField yScaleInput = new JTextField(4);
+        yScaleInput = new JTextField(4);
         yScaleInput.setText(Integer.toString(ImageThread.YSCALE));
         
         JLabel accuracyLabel = new JLabel("Accuracy: ");
-        JTextField accuracyInput = new JTextField(4);
+        accuracyInput = new JTextField(4);
         accuracyInput.setText(Integer.toString(ImageThread.ACCURACY));
 
         JLabel greenLabel = new JLabel("Green: ");
-        JTextField greenInput = new JTextField(4);
+        greenInput = new JTextField(4);
         greenInput.setText(Integer.toString(ImageThread.GREEN));
         
         JLabel filterLabel = new JLabel("Filter: ");
-        JTextField filterInput = new JTextField(4);
+        filterInput = new JTextField(4);
         filterInput.setText(Integer.toString(ImageThread.FILTER));
 
         JLabel startLabel = new JLabel("Press enter to stop");
@@ -110,13 +112,17 @@ public class Main implements ActionListener {
 			if (isRunning) {
 				startButton.setText("Stop");
 				
+				ImageThread.XSCALE = Integer.parseInt(xScaleInput.getText());
+				ImageThread.YSCALE = Integer.parseInt(yScaleInput.getText());
+				ImageThread.ACCURACY = Integer.parseInt(accuracyInput.getText());
+				ImageThread.GREEN = Integer.parseInt(greenInput.getText());
+				ImageThread.FILTER = Integer.parseInt(filterInput.getText());
+				
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				Robot robot;
 				
 				try {
 					robot = new Robot();
-					
-					Thread.sleep(5000);
 					
 					FindGame findGame = new FindGame(robot, screenSize);
 					int dimensions[] = findGame.start();
