@@ -40,10 +40,10 @@ public class Main implements ActionListener {
 		
         JFrame jFrame = new JFrame("Aimbot");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(225, 250);
+        jFrame.setSize(225, 200);
         
         JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(7, 2));
+        jPanel.setLayout(new GridLayout(6, 2));
         Border padding = BorderFactory.createEmptyBorder(0, 5, 0, 0);
         jPanel.setBorder(padding);
         
