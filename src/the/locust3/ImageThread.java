@@ -6,12 +6,14 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
 
-public class ImageThread extends Thread{
-	private static final int GREEN = 245;
-	private static final int XSCALE = 25;
-	private static final int YSCALE = 5;
-	private static final int ACCURACY = 25;
-	private static final int FILTER = 7;
+public class ImageThread extends Thread {
+	private boolean running = false;
+	
+	public static int GREEN = 245;
+	public static int XSCALE = 25;
+	public static int YSCALE = 5;
+	public static int ACCURACY = 25;
+	public static int FILTER = 7;
 	
 	private int startX = 0, startY = 0;
 	private int width = 0, height = 0;
@@ -28,7 +30,9 @@ public class ImageThread extends Thread{
 	
 	@Override
 	public void run() {
-		while (true) {
+		running = true;
+		
+		while (running) {
 			BufferedImage screen = robot.createScreenCapture(new Rectangle(startX, startY, width, height));
 			
 			int large = 0;
@@ -75,5 +79,9 @@ public class ImageThread extends Thread{
 
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 		}
+	}
+	
+	public void kill () {
+		running = false;
 	}
 }
