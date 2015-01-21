@@ -6,6 +6,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -25,10 +26,9 @@ public class Main implements ActionListener {
 	
 	JButton startButton;
 	
-	JTextField xScaleInput, yScaleInput, accuracyInput, greenInput, filterInput;
+	JTextField xScaleInput, yScaleInput, accuracyInput, greenInput, filterInput, borderInput;
 	
 	Main () {
-		//Set nice looking Nimbus theme
 		try {
 			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -36,16 +36,14 @@ public class Main implements ActionListener {
 					break;
 				}
 			}
-		} catch (Exception e) {
-			// If Nimbus is not available, you can set the GUI to another look and feel.
-		}
+		} catch (Exception e) {}
 		
         JFrame jFrame = new JFrame("Aimbot");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(230, 200);
+        jFrame.setSize(250, 220);
         
         JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(6, 2));
+        jPanel.setLayout(new GridLayout(7, 2));
         Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         jPanel.setBorder(padding);
         
@@ -68,6 +66,10 @@ public class Main implements ActionListener {
         JLabel filterLabel = new JLabel("Filter: ");
         filterInput = new JTextField(4);
         filterInput.setText(Integer.toString(ImageThread.FILTER));
+        
+        JLabel borderLabel = new JLabel("Border: ");
+        borderInput = new JTextField(4);
+        borderInput.setText(Integer.toString(FindGame.BORDER));
 
         JLabel startLabel = new JLabel("Press enter to stop");
         
@@ -88,6 +90,8 @@ public class Main implements ActionListener {
 		jPanel.add(greenInput);
 		jPanel.add(filterLabel);
 		jPanel.add(filterInput);
+		jPanel.add(borderLabel);
+		jPanel.add(borderInput);
 		jPanel.add(startLabel);
 		
 		jFrame.setContentPane(jPanel);
@@ -117,6 +121,7 @@ public class Main implements ActionListener {
 				ImageThread.ACCURACY = Integer.parseInt(accuracyInput.getText());
 				ImageThread.GREEN = Integer.parseInt(greenInput.getText());
 				ImageThread.FILTER = Integer.parseInt(filterInput.getText());
+				FindGame.BORDER = Integer.parseInt(borderInput.getText());
 				
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				Robot robot;
@@ -131,6 +136,11 @@ public class Main implements ActionListener {
 					int y = dimensions[1];
 					int width = dimensions[2];
 					int height = dimensions[3];
+					
+					robot.mouseMove(width / 2 + x, height / 2 + y);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					Thread.sleep(1000);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
 					
 					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2);
 					threads[0].start();

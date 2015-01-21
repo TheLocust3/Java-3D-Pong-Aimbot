@@ -7,6 +7,8 @@ import java.awt.Robot;
 import java.awt.image.BufferedImage;
 
 public class FindGame {
+	public static int BORDER = 300;
+	
 	private Robot robot;
 	private Dimension screenDimension;
 
@@ -33,7 +35,7 @@ public class FindGame {
 					blackY = y;
 				}
 				
-				if (count > 300) {
+				if (count > BORDER) {
 					gameX = blackX + 1;
 					gameY = blackY + 1;
 				}
@@ -54,7 +56,7 @@ public class FindGame {
 					blackY = y;
 				}
 				
-				if (count > 300) {
+				if (count > BORDER) {
 					gameWidth = Math.abs(blackX - gameX - 2);
 					gameHeight = Math.abs(blackY - gameY - 1);
 				}
