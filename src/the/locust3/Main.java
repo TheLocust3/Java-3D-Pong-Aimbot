@@ -42,11 +42,11 @@ public class Main implements ActionListener {
 		
         JFrame jFrame = new JFrame("Aimbot");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(225, 200);
+        jFrame.setSize(230, 200);
         
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(6, 2));
-        Border padding = BorderFactory.createEmptyBorder(0, 5, 0, 0);
+        Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         jPanel.setBorder(padding);
         
         JLabel xScaleLabel = new JLabel("X-Scale: ");
