@@ -10,6 +10,7 @@ public class ImageThread extends Thread {
 	private boolean running = false;
 	
 	public static int GREEN = 245;
+	public static int BLUE = 240;
 	public static int XSCALE = 25;
 	public static int YSCALE = 5;
 	public static int ACCURACY = 25;
@@ -47,7 +48,7 @@ public class ImageThread extends Thread {
 								if (y % YSCALE == 0) {
 									try {
 										Color color = new Color(screen.getRGB(x, y));
-										if (color.getGreen() >= GREEN) {
+										if (color.getGreen() >= GREEN && color.getBlue() <= BLUE) {
 											count++;
 										}
 									} catch (Exception e) {}

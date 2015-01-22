@@ -26,7 +26,7 @@ public class Main implements ActionListener {
 	
 	JButton startButton;
 	
-	JTextField xScaleInput, yScaleInput, accuracyInput, greenInput, filterInput, borderInput;
+	JTextField xScaleInput, yScaleInput, accuracyInput, greenInput, filterInput, borderInput, blueInput;
 	
 	Main () {
 		try {
@@ -40,10 +40,10 @@ public class Main implements ActionListener {
 		
         JFrame jFrame = new JFrame("Aimbot");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(250, 220);
+        jFrame.setSize(250, 250);
         
         JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(7, 2));
+        jPanel.setLayout(new GridLayout(8, 2));
         Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         jPanel.setBorder(padding);
         
@@ -62,6 +62,10 @@ public class Main implements ActionListener {
         JLabel greenLabel = new JLabel("Green: ");
         greenInput = new JTextField(4);
         greenInput.setText(Integer.toString(ImageThread.GREEN));
+
+        JLabel blueLabel = new JLabel("Blue: ");
+        blueInput = new JTextField(4);
+        blueInput.setText(Integer.toString(ImageThread.BLUE));
         
         JLabel filterLabel = new JLabel("Filter: ");
         filterInput = new JTextField(4);
@@ -88,6 +92,8 @@ public class Main implements ActionListener {
 		jPanel.add(accuracyInput);
 		jPanel.add(greenLabel);
 		jPanel.add(greenInput);
+		jPanel.add(blueLabel);
+		jPanel.add(blueInput);
 		jPanel.add(filterLabel);
 		jPanel.add(filterInput);
 		jPanel.add(borderLabel);
@@ -120,6 +126,7 @@ public class Main implements ActionListener {
 				ImageThread.YSCALE = Integer.parseInt(yScaleInput.getText());
 				ImageThread.ACCURACY = Integer.parseInt(accuracyInput.getText());
 				ImageThread.GREEN = Integer.parseInt(greenInput.getText());
+				ImageThread.BLUE = Integer.parseInt(blueInput.getText());
 				ImageThread.FILTER = Integer.parseInt(filterInput.getText());
 				FindGame.BORDER = Integer.parseInt(borderInput.getText());
 				

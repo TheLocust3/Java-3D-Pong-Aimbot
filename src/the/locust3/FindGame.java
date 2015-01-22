@@ -52,8 +52,8 @@ public class FindGame {
 				
 				if ((color.getRed() == 116 && color.getGreen() == 255 && color.getBlue() == 252) || (color.getRed() == 82 && color.getGreen() == 179 && color.getBlue() == 176)) {
 					count++;
-					blackX = x;
-					blackY = y;
+					blackX = x - 1;
+					blackY = y - 1;
 				}
 				
 				if (count > BORDER) {
