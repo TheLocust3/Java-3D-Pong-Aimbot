@@ -27,9 +27,12 @@ public class FindGame {
 		for (int y = (int) screenDimension.getHeight() - 1; y > 0; y--) {
 			int count = 0;
 			for (int x = (int) screenDimension.getWidth() - 1; x > 0; x--) {
-				Color color = new Color(screen.getRGB(x, y));
+				int rgb = screen.getRGB(x, y);
+				int red = (rgb >> 16) & 0x000000FF;
+				int green = (rgb >>8 ) & 0x000000FF;
+				int blue = (rgb) & 0x000000FF;
 				
-				if ((color.getRed() == 116 && color.getGreen() == 255 && color.getBlue() == 252) || (color.getRed() == 82 && color.getGreen() == 179 && color.getBlue() == 176)) {
+				if (red == 116 && green == 255 && blue == 252) {
 					count++;
 					blackX = x;
 					blackY = y;

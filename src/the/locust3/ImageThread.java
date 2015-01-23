@@ -1,6 +1,5 @@
 package the.locust3;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
@@ -47,8 +46,10 @@ public class ImageThread extends Thread {
 							for (int y = ACCURACY * h; y <= ACCURACY * (h + 1); y++) {
 								if (y % YSCALE == 0) {
 									try {
-										Color color = new Color(screen.getRGB(x, y));
-										if (color.getGreen() >= GREEN && color.getBlue() <= BLUE) {
+										int rgb = screen.getRGB(x, y);
+										int green = (rgb >>8 ) & 0x000000FF;
+										int blue = (rgb) & 0x000000FF;
+										if (green >= GREEN && blue <= BLUE) {
 											count++;
 										}
 									} catch (Exception e) {}
