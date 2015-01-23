@@ -146,7 +146,7 @@ public class Main implements ActionListener {
 					
 					robot.mouseMove(width / 2 + x, height / 2 + y);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
-					Thread.sleep(1000);
+					Thread.sleep(100);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					
 					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2);
