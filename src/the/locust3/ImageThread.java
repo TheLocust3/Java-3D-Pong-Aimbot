@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class ImageThread extends Thread {
 	private boolean running = false;
 	
-	public static int GREEN = 240;
+	public static int GREEN = 245;
 	public static int BLUE = 240;
 	public static int XSCALE = 25;
 	public static int YSCALE = 5;
@@ -38,16 +38,19 @@ public class ImageThread extends Thread {
 			int large = 0;
 			int ballX = 0, ballY = 0;
 			
-			for (int w = width / ACCURACY; w >= 0; w--) {
+			double wGoTo = width / ACCURACY;
+			double hGoTo = height / ACCURACY;
+			
+			for (int w = 0; w <= wGoTo; w++) {
 				int count = 0;
-				for (int h = height / ACCURACY; h >= 0; h--) {
+				for (int h = 0; h <= hGoTo; h++) {
 					for (int x = ACCURACY * w; x <= ACCURACY * (w + 1); x++) {
 						if (x % XSCALE == 0) {
 							for (int y = ACCURACY * h; y <= ACCURACY * (h + 1); y++) {
 								if (y % YSCALE == 0) {
 									try {
 										int rgb = screen.getRGB(x, y);
-										int green = (rgb >>8 ) & 0x000000FF;
+										int green = (rgb >> 8) & 0x000000FF;
 										int blue = (rgb) & 0x000000FF;
 										if (green >= GREEN && blue <= BLUE) {
 											count++;

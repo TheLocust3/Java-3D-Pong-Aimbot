@@ -27,6 +27,7 @@ public class Main implements ActionListener {
 	JButton startButton;
 	
 	JTextField xScaleInput, yScaleInput, accuracyInput, greenInput, filterInput, borderInput, blueInput;
+	JLabel startLabel;
 	
 	Main () {
 		try {
@@ -75,7 +76,7 @@ public class Main implements ActionListener {
         borderInput = new JTextField(4);
         borderInput.setText(Integer.toString(FindGame.BORDER));
 
-        JLabel startLabel = new JLabel("Press enter to stop");
+        startLabel = new JLabel("Press enter to start");
         
         startButton = new JButton("Start");
         startButton.setActionCommand("StartButton");
@@ -121,6 +122,7 @@ public class Main implements ActionListener {
 			
 			if (isRunning) {
 				startButton.setText("Stop");
+				startLabel.setText("Press enter to stop");
 				
 				ImageThread.XSCALE = Integer.parseInt(xScaleInput.getText());
 				ImageThread.YSCALE = Integer.parseInt(yScaleInput.getText());
@@ -145,8 +147,9 @@ public class Main implements ActionListener {
 					int height = dimensions[3];
 					
 					robot.mouseMove(width / 2 + x, height / 2 + y);
+					Thread.sleep(250);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
-					Thread.sleep(100);
+					Thread.sleep(250);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					
 					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2);
@@ -164,7 +167,8 @@ public class Main implements ActionListener {
 					e.printStackTrace();
 				}
 			} else {
-				startButton.setText("Stop");
+				startButton.setText("Start");
+				startLabel.setText("Press enter to start");
 
 				threads[0].kill();
 				threads[1].kill();
