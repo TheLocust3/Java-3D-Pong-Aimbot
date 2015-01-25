@@ -152,16 +152,16 @@ public class Main implements ActionListener {
 					Thread.sleep(250);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					
-					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2);
+					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2, 1);
 					threads[0].start();
 	
-					threads[1] = new ImageThread(robot, x + width / 2, y, width / 2, height / 2);
+					threads[1] = new ImageThread(robot, x + width / 2, y, width / 2, height / 2, 2);
 					threads[1].start();
 					
-					threads[2] = new ImageThread(robot, x, y + height / 2, width / 2, height / 2);
+					threads[2] = new ImageThread(robot, x, y + height / 2, width / 2, height / 2, 3);
 					threads[2].start();
 	
-					threads[3] = new ImageThread(robot, x + width / 2, y + height / 2, width / 2, height / 2);
+					threads[3] = new ImageThread(robot, x + width / 2, y + height / 2, width / 2, height / 2, 4);
 					threads[3].start();
 				} catch (Exception e) {
 					e.printStackTrace();
