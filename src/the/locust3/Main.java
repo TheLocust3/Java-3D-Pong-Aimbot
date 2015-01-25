@@ -147,9 +147,11 @@ public class Main implements ActionListener {
 					int height = dimensions[3];
 					
 					robot.mouseMove(width / 2 + x, height / 2 + y);
-					Thread.sleep(250);
+					Thread.sleep(500);
+					robot.mouseMove(width / 2 + x, height / 2 + y);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
-					Thread.sleep(250);
+					Thread.sleep(500);
+					robot.mouseMove(width / 2 + x, height / 2 + y);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					
 					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2, 1);
