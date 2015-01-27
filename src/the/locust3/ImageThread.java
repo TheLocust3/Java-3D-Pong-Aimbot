@@ -56,6 +56,35 @@ public class ImageThread extends Thread {
 		running = false;
 	}
 	
+	private int[] innerProcess (int w, int h, BufferedImage screen, int count) {
+		int ballX = 0, ballY = 0, large = 0;
+		for (int x = ACCURACY * w; x <= ACCURACY * (w + 1); x++) {
+			if (x % XSCALE == 0) {
+				for (int y = ACCURACY * h; y <= ACCURACY * (h + 1); y++) {
+					if (y % YSCALE == 0) {
+						try {
+							int rgb = screen.getRGB(x, y);
+							int green = (rgb >> 8) & 0x000000FF;
+							int blue = (rgb) & 0x000000FF;
+							if (green >= GREEN && blue <= BLUE) {
+								count++;
+							}
+						} catch (Exception e) {}
+					}
+				}
+			}
+			
+			if (count > large && count > FILTER) {
+				ballX = ((w + 1) * ACCURACY) - ACCURACY / 2;
+				ballY = ((h + 1) * ACCURACY) - ACCURACY / 2;
+				large = count;
+				break;
+			}
+		}
+		
+		return new int[]{ballX, ballY, large};
+	}
+	
 	private void rightTop (BufferedImage screen) {
 		int ballX = 0;
 		int ballY = 0;
@@ -68,29 +97,11 @@ public class ImageThread extends Thread {
 		for (int w = 0; w <= wGoTo; w++) {
 			int count = 0;
 			for (int h = 0; h <= hGoTo; h++) {
-				for (int x = ACCURACY * w; x <= ACCURACY * (w + 1); x++) {
-					if (x % XSCALE == 0) {
-						for (int y = ACCURACY * h; y <= ACCURACY * (h + 1); y++) {
-							if (y % YSCALE == 0) {
-								try {
-									int rgb = screen.getRGB(x, y);
-									int green = (rgb >> 8) & 0x000000FF;
-									int blue = (rgb) & 0x000000FF;
-									if (green >= GREEN && blue <= BLUE) {
-										count++;
-									}
-								} catch (Exception e) {}
-							}
-						}
-					}
-					
-					if (count > large && count > FILTER) {
-						ballX = ((w + 1) * ACCURACY) - ACCURACY / 2;
-						ballY = ((h + 1) * ACCURACY) - ACCURACY / 2;
-						large = count;
-						break;
-					}
-				}
+				
+				int[] output = innerProcess(w, h, screen, count);
+				ballX = output[0];
+				ballY = output[1];
+				large = output[2];
 				
 				if (large > FILTER) {
 					break;
@@ -120,20 +131,11 @@ public class ImageThread extends Thread {
 			int count = 0;
 			for (int h = (int) hGoTo; h >= 0; h--) {
 				for (int x = ACCURACY * w; x <= ACCURACY * (w + 1); x++) {
-					if (x % XSCALE == 0) {
-						for (int y = ACCURACY * h; y <= ACCURACY * (h + 1); y++) {
-							if (y % YSCALE == 0) {
-								try {
-									int rgb = screen.getRGB(x, y);
-									int green = (rgb >> 8) & 0x000000FF;
-									int blue = (rgb) & 0x000000FF;
-									if (green >= GREEN && blue <= BLUE) {
-										count++;
-									}
-								} catch (Exception e) {}
-							}
-						}
-					}
+					
+					int[] output = innerProcess(w, h, screen, count);
+					ballX = output[0];
+					ballY = output[1];
+					large = output[2];
 					
 					if (count > large && count > FILTER) {
 						ballX = ((w + 1) * ACCURACY) - ACCURACY / 2;
@@ -171,20 +173,11 @@ public class ImageThread extends Thread {
 			int count = 0;
 			for (int h = 0; h <= hGoTo; h++) {
 				for (int x = ACCURACY * w; x <= ACCURACY * (w + 1); x++) {
-					if (x % XSCALE == 0) {
-						for (int y = ACCURACY * h; y <= ACCURACY * (h + 1); y++) {
-							if (y % YSCALE == 0) {
-								try {
-									int rgb = screen.getRGB(x, y);
-									int green = (rgb >> 8) & 0x000000FF;
-									int blue = (rgb) & 0x000000FF;
-									if (green >= GREEN && blue <= BLUE) {
-										count++;
-									}
-								} catch (Exception e) {}
-							}
-						}
-					}
+					
+					int[] output = innerProcess(w, h, screen, count);
+					ballX = output[0];
+					ballY = output[1];
+					large = output[2];
 					
 					if (count > large && count > FILTER) {
 						ballX = ((w + 1) * ACCURACY) - ACCURACY / 2;
@@ -222,20 +215,11 @@ public class ImageThread extends Thread {
 			int count = 0;
 			for (int h = (int) hGoTo; h >= 0; h--) {
 				for (int x = ACCURACY * w; x <= ACCURACY * (w + 1); x++) {
-					if (x % XSCALE == 0) {
-						for (int y = ACCURACY * h; y <= ACCURACY * (h + 1); y++) {
-							if (y % YSCALE == 0) {
-								try {
-									int rgb = screen.getRGB(x, y);
-									int green = (rgb >> 8) & 0x000000FF;
-									int blue = (rgb) & 0x000000FF;
-									if (green >= GREEN && blue <= BLUE) {
-										count++;
-									}
-								} catch (Exception e) {}
-							}
-						}
-					}
+					
+					int[] output = innerProcess(w, h, screen, count);
+					ballX = output[0];
+					ballY = output[1];
+					large = output[2];
 					
 					if (count > large && count > FILTER) {
 						ballX = ((w + 1) * ACCURACY) - ACCURACY / 2;
