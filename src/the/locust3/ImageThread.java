@@ -10,9 +10,9 @@ public class ImageThread extends Thread {
 	
 	public static int GREEN = 245;
 	public static int BLUE = 240;
-	public static int XSCALE = 30;
+	public static int XSCALE = 25;
 	public static int YSCALE = 5;
-	public static int ACCURACY = 30;
+	public static int ACCURACY = 25;
 	public static int FILTER = 3;
 	
 	private int startX = 0, startY = 0;
