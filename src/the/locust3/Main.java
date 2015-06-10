@@ -146,6 +146,16 @@ public class Main implements ActionListener {
 				try {
 					robot = new Robot();
 					
+					// The following code only works on MY COMPUTER
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					robot.mouseMove(650, 390);
+					Thread.sleep(1000);
+					robot.mousePress(InputEvent.BUTTON1_MASK);
+					robot.mouseRelease(InputEvent.BUTTON1_MASK);
+					Thread.sleep(2000);
+					
+					// This code still works for all computers
 					FindGame findGame = new FindGame(robot, screenSize);
 					int dimensions[] = findGame.start();
 					
