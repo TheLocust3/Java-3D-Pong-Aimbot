@@ -10,6 +10,7 @@ import java.awt.event.InputEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,11 +21,12 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 public class Main implements ActionListener {
-	private boolean isRunning = false;
+	private boolean isRunning = false, autoClick = false;
 	
 	ImageThread threads[] = new ImageThread[4];
 	
 	JButton startButton;
+	JCheckBox autoClickCheck;
 	
 	JTextField xScaleInput, yScaleInput, accuracyInput, greenInput, filterInput, borderInput, blueInput;
 	JLabel startLabel;
@@ -44,7 +46,7 @@ public class Main implements ActionListener {
         jFrame.setSize(250, 250);
         
         JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(8, 2));
+        jPanel.setLayout(new GridLayout(9, 2));
         Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         jPanel.setBorder(padding);
         
@@ -75,9 +77,13 @@ public class Main implements ActionListener {
         JLabel borderLabel = new JLabel("Border: ");
         borderInput = new JTextField(4);
         borderInput.setText(Integer.toString(FindGame.BORDER));
-
-        startLabel = new JLabel("Press enter to start");
         
+        JLabel autoClickLabel = new JLabel("Auto Click: ");
+        autoClickCheck = new JCheckBox("", false);
+        autoClickCheck.setActionCommand("AutoClick");
+        autoClickCheck.addActionListener(this);
+        
+        startLabel = new JLabel("Press enter to start");
         startButton = new JButton("Start");
         startButton.setActionCommand("StartButton");
         startButton.addActionListener(this);
@@ -99,6 +105,8 @@ public class Main implements ActionListener {
 		jPanel.add(filterInput);
 		jPanel.add(borderLabel);
 		jPanel.add(borderInput);
+		jPanel.add(autoClickLabel);
+		jPanel.add(autoClickCheck);
 		jPanel.add(startLabel);
 		
 		jFrame.setContentPane(jPanel);
@@ -108,7 +116,7 @@ public class Main implements ActionListener {
 	}
 	
 	public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Main();
             }
@@ -154,16 +162,16 @@ public class Main implements ActionListener {
 					robot.mouseMove(width / 2 + x, height / 2 + y);
 					robot.mousePress(InputEvent.BUTTON1_MASK);
 					
-					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2, 1);
+					threads[0] = new ImageThread(robot, x, y, width / 2, height / 2, 1, autoClick);
 					threads[0].start();
 	
-					threads[1] = new ImageThread(robot, x + width / 2, y, width / 2, height / 2, 2);
+					threads[1] = new ImageThread(robot, x + width / 2, y, width / 2, height / 2, 2, false);
 					threads[1].start();
 					
-					threads[2] = new ImageThread(robot, x, y + height / 2, width / 2, height / 2, 3);
+					threads[2] = new ImageThread(robot, x, y + height / 2, width / 2, height / 2, 3, false);
 					threads[2].start();
 	
-					threads[3] = new ImageThread(robot, x + width / 2, y + height / 2, width / 2, height / 2, 4);
+					threads[3] = new ImageThread(robot, x + width / 2, y + height / 2, width / 2, height / 2, 4, false);
 					threads[3].start();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -177,6 +185,8 @@ public class Main implements ActionListener {
 				threads[2].kill();
 				threads[3].kill();
 			}
+		} else if (actionEvent.getActionCommand().equals("AutoClick")) {	
+			autoClick = autoClickCheck.isSelected();
 		}
 	}
 }

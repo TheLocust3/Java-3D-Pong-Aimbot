@@ -6,7 +6,7 @@ import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
 
 public class ImageThread extends Thread {
-	private boolean running = false;
+	private boolean running = false, autoClick = false;
 	
 	public static int GREEN = 245;
 	public static int BLUE = 240;
@@ -22,13 +22,14 @@ public class ImageThread extends Thread {
 
 	private Robot robot;
 	
-	public ImageThread (Robot robot, int startX, int startY, int width, int height, int side) {
+	public ImageThread (Robot robot, int startX, int startY, int width, int height, int side, boolean autoClick) {
 		this.robot = robot;
 		this.startX = startX;
 		this.startY = startY;
 		this.width = width;
 		this.height = height;
 		this.side = side;
+		this.autoClick = autoClick;
 	}
 	
 	@Override
@@ -48,7 +49,10 @@ public class ImageThread extends Thread {
 				leftBottom(screen);
 			}
 
-			robot.mousePress(InputEvent.BUTTON1_MASK);
+			if (autoClick) {
+				robot.mousePress(InputEvent.BUTTON1_MASK);
+				robot.mouseRelease(InputEvent.BUTTON1_MASK);
+			}
 		}
 	}
 	
